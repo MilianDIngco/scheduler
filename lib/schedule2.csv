@@ -1,0 +1,12 @@
+Building,Room,Capacity,Computers Available,Seating Available,Seating Type,Food Allowed,Room Type,Priority
+2024-12-25,12:50 PM,Forcina,196,742,No,Various Seating Options,Level,No,Conference Room,Administration,Opening Ceremony
+2024-12-25,12:50 PM,Forcina,284,625,No,Various Seating Options,Tiered,No,Study Room,Physics,Closing Ceremony
+2024-12-25,12:50 PM,Forcina,146,410,Yes,Various Seating Options,Level,Yes,Conference Room,Computer Science,Food Allowed
+2024-12-25,12:50 PM,Forcina,462,257,No,Various Seating Options,Level,Yes,Conference Room,Biology,Food Allowed
+2024-12-25,12:50 PM,Forcina,403,30,Yes,Large Tables with Chairs,Level,No,Computer Lab,Computer Science,Computers Provided
+2024-12-25,12:50 PM,Forcina,377,119,Yes,Various Seating Options,Tiered,No,Conference Room,Biology,Computers Provided
+2024-12-25,12:50 PM,Forcina,377,119,Yes,Various Seating Options,Tiered,No,Conference Room,Biology,Large Group
+2024-12-25,12:50 PM,Forcina,347,278,No,Various Seating Options,Level,No,Study Room,Chemistry,Large Group
+2024-12-25,12:50 PM,Forcina,402,557,No,Various Seating Options,Tiered,Yes,Study Room,Chemistry,Large Group
+2024-12-25,12:50 PM,Forcina,227,28,Yes,Various Seating Options,Level,No,Study Room,Computer Science,Small Group
+2024-12-25,12:50 PM,Forcina,360,187,No,Various Seating Options,Tiered,Yes,Study Room,Social Sciences,Small Group
