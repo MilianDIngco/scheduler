@@ -43,6 +43,42 @@ class Room
 		return true 
 
 	end
+
+	def addReservation(startTime, endTime) 
+	# ========== ADDING AND SORTING DATES =================
+			# if room reservation array has no dates, just append it
+			if @availability.length <= 1
+				@availability.push(startTime)
+				@availability.push(endTime)
+			else
+				# Otherwise, perfom a linear search to find where the date should be inserted
+				
+				# Check if end time is less than the first start date
+				if @availability[1] < endTime
+					@availability.insert(1, startTime)
+					@availability.insert(2, endTime)
+				else
+					# Loop over the lists end times
+					(2..(@availability.length - 1)).step(2) do |i|
+						# Check if the start time is greater than the current end time and less than the next start time
+						if (i == @availability.length - 1) && (@availability[i] < startTime)
+							@availability.push(startTime)
+							@availability.push(endTime)
+							break
+						end
+				
+						# If starts later than current end and ends earlier than next start, add start and end	
+						if (@availability[i] < start) && (@availability[i + 1] > endTime)
+							@availability.insert(i + 1, startTime)
+							@availability.insert(i + 2, endTime)
+							break
+						end
+					end
+				end	
+	
+			end	# END OF SORTING DATES	
+
+	end
 	
 end
 		

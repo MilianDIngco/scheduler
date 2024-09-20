@@ -10,5 +10,16 @@ class Building
 		@name = name
 	end
 
+	# @param roomNo [Integer] gets room with this number
+	def getRoom(roomNo) 
+		for room in rooms
+			if room.name == roomNo
+				return room	
+			end
+		end
+
+		return nil
+	end
+
 end
 
