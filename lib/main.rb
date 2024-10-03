@@ -148,6 +148,199 @@ class Main
 
 	end
 
+	def integer?(str)
+		Integer(str)
+		true
+	rescue ArgumentError
+		false
+	end
+
+	def float?(str)
+		Float(str)
+		true
+	rescue ArgumentError
+		false
+	end
+
+	# Loops and requests user input until a valid year is given
+	# Returns string
+	def getYear
+		input = nil
+		while true
+			input = gets.chomp
+
+			# Check if it's a number
+			if !integer?(input)
+				puts "You entered an invalid number, try again."
+				next
+			end
+			# Check if it's a 4 digit number
+			if input.length < 4 || input.length > 4
+				puts "You entered a year far beyond our times, try again."
+				next
+			end
+			# Check if it's later than the current year
+			if Integer(input) < Time.now.year 
+				puts "That year has already passed, try again."
+				next
+			end
+
+			break
+		end
+		return input
+	end
+
+	# Loops and requests user input until a valid month is given
+	# Returns string
+	def getMonth
+		input = nil
+		while true
+			input = gets.chomp
+
+			# Check if it's a number
+			if !integer?(input)
+				puts "You entered an invalid number, try again."
+				next
+			end
+			# Check if it's a valid month
+			if Integer(input) < 1 || Integer(input) > 12
+				puts "You entered a month far beyond our times, try again."
+				next
+			end
+			# Check if it's later than the current month
+			if Integer(input) < Time.now.month
+				puts "That month has already passed, try again."
+				next
+			end
+ 
+			break
+		end
+		return input
+	end
+
+	# Loops and requests user input until a valid day is given
+	# Returns string
+	def getDay
+		input = nil
+		while true
+			input = gets.chomp
+
+			# Check if it's a number
+			if !integer?(input)
+				puts "You entered an invalid number, try again."
+				next
+			end
+			# Check if it's a valid day
+			if Integer(input) < 1 || Integer(input) > 31
+				puts "You entered a day far beyond our times, try again."
+				next
+			end
+
+			break
+		end
+		return input
+	end
+
+	# Loops and requests user input until a valid day is given
+	# Returns string
+	def getTime
+		input = nil
+		while true
+			input = gets.chomp
+
+			if input.length < 7 || input.length > 8
+				puts "Invalid string length"
+				next
+			end
+
+			if !input.match?(/^\d{1,2}:\d{2} [AP]M$/)
+				puts "Input doesn't match the time format"
+				next
+			end
+
+			hour = Integer(input[/^\d{1,2}/])
+			minute = Integer(input[/:(\d{2})/, 1])
+			if hour < 1 || hour > 12
+				puts "Invalid hour"
+				next
+			end
+
+			if minute < 0 || minute > 59
+				puts "Invalid minute"
+				next
+			end
+			
+			break
+		end
+		return input
+	end
+
+	# Loops and requests user input until a valid hour value is given
+	# Returns float
+	def getHours
+		input = nil
+		while true
+			input = gets.chomp
+
+			if !integer?(input) && !float?(input)
+				puts "Input isn't an integer or a float"
+				next
+			end
+
+			if Float(input) < 0
+				puts "Integer isn't nonnegative"
+				next
+			end
+			
+			break
+		end
+		return Float(input)
+	end
+
+	# Loops and requests user input until a valid unsigned integer is given
+	# Returns integer
+	def getUInteger
+		input = nil
+		while true
+			input = gets.chomp
+
+			if !integer?(input)
+				puts "Input isn't an integer or a float"
+				next
+			end
+
+			if Integer(input) < 0
+				puts "Input isn't nonnegative"
+				next
+			end
+			
+			break
+		end
+		return Integer(input)
+	end
+
+	# Loops and requests user input until a valid option is given
+	# Returns integer
+	def getOption(min, max)
+		input = nil
+		while true
+			input = gets.chomp
+
+			if !integer?(input)
+				puts "Input isn't an integer or a float"
+				next
+			end
+
+			if Integer(input) < min || Integer(input) > max
+				puts "Input out of bounds"
+				next
+			end
+			
+			break
+		end
+		return Integer(input)
+	end
+
 	def run
 
 		# Request [year, month, day, time, duration in hours, name of event, number of attendees, margin of time before and after event starts and ends]
@@ -168,28 +361,28 @@ class Main
 		while !wanted 
 		
 			puts "Enter the year in this format [20xx]"
-			year = gets.chomp
+			year = getYear()
 
 			puts "Enter the month in this format [xx]. [01] to [12]"
-			month = gets.chomp
+			month = getMonth()
 
 			puts "Enter the day in this format [xx] [01] to [31] (well depending if the month has 31 days i guess)"
-			day = gets.chomp
+			day = getDay()
 
 			puts "Enter the time that the event will start in this format [xx:xx xM] eg: [12:30 PM]"
-			time = gets.chomp
+			time = getTime()
 
 			puts "Enter the duration of the event in hours in the format [xx.x] eg: [24.5] == 24 hours 30 minutes"
-			durationHour = gets.chomp
+			durationHour = getHours()
 
 			puts "Enter the name of the event"
 			name = gets.chomp
 
 			puts "Enter the number of attendees you expect" 
-			nAttendees = gets.chomp.to_i rescue next
+			nAttendees = getUInteger()
 
 			puts "Enter the margin of time you want the rooms to be open before and after the event starts and ends in hours [xx.x] eg: [1.5] == 1 hour 30 minutes"
-			marginHours = gets.chomp.to_f rescue next
+			marginHours = getHours()
 
 			puts "Is this correct?"
 			puts "#{year}-#{month}-#{day} at #{time} for #{durationHour} hour/s"
@@ -212,7 +405,7 @@ class Main
 		wanted = false
 		while !wanted
 			puts "Enter the option # you want to save to a csv file: "
-			option_no = gets.chomp.to_i rescue next
+			option_no = getOption(0, schedules.length - 1)
 
 			puts "Enter name of csv file you wish to write the schedule to: "
 			file_path = gets.chomp
